@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="nl" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head(title)">
+    <title th:text="${title}"></title>
+</head>
+<body>
+
+<nav th:fragment="menu">
+    <a class="active" th:href="@{/}">Home</a>
+    <a class="active" th:href="@{/kattenbak}">kattenbak</a>
+</nav>
+</body>
+</html>

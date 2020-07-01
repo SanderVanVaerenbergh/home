@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en-US" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments::head(title='nieuwe kattenbak')"></head>
+<body>
+<div class="navbar">
+    <nav th:replace="fragments::menu"></nav>
+</div>
+
+<h2>KattenbakLijst</h2>
+
+<table th:if="${Allekattenbakken} != null">
+    <thead>
+    <tr>
+        <th>Naam</th>
+        <th>Datum</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="kattenbak:${Allekattenbakken}" th:object="${kattenbak}">
+        <td th:text="*{naam}"></td>
+        <td th:text="|*{datum.dayOfMonth}/*{datum.monthValue}/*{datum.year}|"></td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>Top 3</h2>
+<table>
+    <tr>
+        <th>nr</th>
+        <th>naam</th>
+        <th>hoeveel uitgekuist</th>
+    </tr>
+    <tr th:each="top,iterator:${top3}" th:object="${top}">
+        <td th:text="${iterator.index+1}"></td>
+        <td th:text="*{getKey()}"></td>
+        <td th:text="*{getValue()}"></td>
+    </tr>
+</table>
+
+<h1>Ik heb de kattenbak ververst</h1>
+
+<form th:action="@{/kattenbak/toevoegen}" method="post" th:object="${kattenbak}">
+    <label>Naam <span th:errors="${kattenbak.naam}"></span>
+        <input th:field="${kattenbak.naam}" type="text" required autofocus></label>
+    <label>Datum (dd-mm-yyyy)<span th:errors="${kattenbak.datum}"></span>
+        <input th:field="${kattenbak.datum}"required></label>
+    <input type="submit" value="toevoegen">
+</form>
+</body>
+</html>
